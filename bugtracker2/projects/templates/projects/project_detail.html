@@ -1,0 +1,45 @@
+{% extends "projects/project_base.html" %}
+
+{% block preproject %}
+
+
+<h1>{{project.name}}</h1>
+<h2> Member Count: {{project.members.count}}</h2>
+
+  <div class="content">
+
+
+				{% if user in project.members.all %}
+					<a href="{% url 'projects:leave' slug=project.slug %}" class="btn btn-lg btn-fill btn-warning"><span class="glyphicon glyphicon-remove-circle"></span> Leave</a>
+				{% else %}
+        {% if messages %}
+            {% for message in messages %}
+            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+					<a href="{% url 'projects:join' slug=project.slug %}" class="btn btn-lg btn-fill btn-warning"><span class="glyphicon glyphicon-ok-circle"></span> Join</a>
+				{% endif %}
+
+
+
+</div>
+
+{% endblock %}
+
+
+{% block project_content %}
+
+<div class="col-md-8">
+  <a href="{% url 'tickets:create' %}?Project={{project.name}}">New Ticket</a>
+	{% if project.tickets.count == 0 %}
+	<h2>No tickets for this project yet!</h2>
+
+	{% else %}
+
+		{% for ticket in project.tickets.all %}
+			{% include "tickets/_ticket.html" %}
+		{% endfor %}
+
+	{% endif %}
+</div>
+{% endblock %}

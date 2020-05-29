@@ -1,0 +1,12 @@
+{% extends "tickets/ticket_base.html" %}
+
+{% block ticket_content %}
+{% if messages %}
+    {% for message in messages %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+  <div class="col-md-8">
+    {% include "tickets/_ticket.html" %}
+  </div>
+{% endblock %}

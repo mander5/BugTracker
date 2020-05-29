@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="tickets-page">
+  <div class="container">
+    <div class="row">
+      {% block preticket %}{% endblock %}
+      {% block ticket_content %}{% endblock %}
+      {% block ticketticket %}{% endblock %}
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

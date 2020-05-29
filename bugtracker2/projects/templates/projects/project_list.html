@@ -1,0 +1,56 @@
+{% extends "projects/project_base.html" %}
+
+{% block preproject %}
+
+
+<div class="col-md-4">
+  <div class="content">
+    <h2>Projects</h2>
+    <p>List of open projects</p>
+    {% if user.is_authenticated %}
+      <h2>Welcome back</h2>
+      <a href="{% url 'tickets:for_user' username=user.username %}">@{{user.username}}</a>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block project_content %}
+
+<div class="col-md-8">
+  {% if messages %}
+      {% for message in messages %}
+      <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+      {% endfor %}
+  {% endif %}
+  {% if user.is_authenticated %}
+    <a href="{% url 'projects:create' %}" class='btn btn-primary'>
+      Create New Project
+    </a>
+  {% endif %}
+  <div class="list-group">
+      {% for project in object_list %}
+          <a class='list-group-item' href="{% url 'projects:single' slug=project.slug %}">
+            <h3 class='title list-group-item-heading'>{{project.name}}</h3>
+            <div class="list-group-item-text container-fluid">
+              {{project.description_html|safe}}
+              <div class="row">
+                <div class="col-md-4">
+                  <span class='badge'>{{project.members.count}} </span>
+                  member{{project.members.count|pluralize}}
+                </div>
+                <div class="col-md-4">
+                  <span class='badge'>{{project.tickets.count}} </span>
+                  tickets{{project.members.count|pluralize}}
+                </div>
+              </div>
+            </div>
+          </a>
+      {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

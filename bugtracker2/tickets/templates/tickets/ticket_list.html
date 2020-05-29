@@ -1,0 +1,51 @@
+{% extends "tickets/ticket_base.html" %}
+{% block pre_ticket_content %}
+<div class="col-md-4">
+  {% if request.user.is_authenticated %}
+    <div class="card card-with-shadow">
+      <div class="content">
+        <h5 class='title'>Your Projects</h5>
+        <ul class='list-unstyled'>
+          {% for member_project in get_user_projects  %}
+          <li class='project li-with-bullet'>
+             <a href="{% url 'project:single' slug=member_project.project.slug}">
+             </a>
+           </li>
+
+          {% endfor %}
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  {% endif %}
+  <div class="card card-with-shadow">
+    <div class="content">
+      <h5 class='title'>All PROJECTS</h5>
+      <ul class='list-unstyled'>
+        {% for other_project in get_other_projects  %}
+          <li class='project li-with-bullet'>
+              <a href="{% url 'projects:signle' slug=other_project.slug %}"></a>
+          </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block ticket_content %}
+  <div class="col-md-8">
+    {% for ticket in ticket_list  %}
+    {% include "tickets/_ticket.html" %}
+
+    {% endfor %}
+
+  </div>
+{% endblock %}

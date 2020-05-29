@@ -1,0 +1,19 @@
+{% extends "tickets/ticket_base.html" %}
+{% block preticket %}
+  <div class="col-md-4">
+    <h1>@{{ticket_user.username}}</h1>
+  </div>
+{% endblock %}
+{% block ticket_content %}
+  <div class="col-md-8">
+    {% if messages %}
+        {% for message in messages %}
+        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    {% for ticket in  ticket_list %}
+      {% include "tickets/_ticket.html" %}
+    {% endfor %}
+
+  </div>
+{% endblock %}
