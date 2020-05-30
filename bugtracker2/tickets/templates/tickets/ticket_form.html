@@ -2,11 +2,16 @@
 {% load bootstrap3 %}
 
 {% block ticket_content %}
-  <h4>Create a new ticket</h4>
+<div class="container">
+    <h4>Create a new ticket</h4>
+</div>
+<div class="container">
   <form id='ticketForm' class="" action="{% url 'tickets:create' %}" method="POST">
     {% csrf_token %}
     {% bootstrap_form form %}
     <input type="submit" value="Submit" class='btn btn-primary btn-lg'>
 
   </form>
+</div>
+
 {% endblock %}

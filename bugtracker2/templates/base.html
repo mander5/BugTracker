@@ -5,23 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title>Bug Tracker</title>
-    <!-- Latest compiled and minified CSS -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-      crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+      <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'bugtracker2/css/master.css'%}">
+    <link rel="stylesheet" href="{% static 'bugtracker2/css/master.css' %}">
     {% block head %}
     {% endblock %}
 
@@ -30,29 +19,28 @@
 
   <body>
 
-    <nav class="navbar  mynav" role="navigation" id="navbar">
-    			<div class="container">
+        <nav class="navbar-total navbar navbar-default navbar-expand-lg mynav navbar-light ">
+          <a class="navbar-brand mynav mr-auto" href="{% url 'home' %}">Bug Tracker</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-            <a class="navbar-brand mynav" href="{% url 'home' %}">Bug Tracker</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              {% if user.is_authenticated %}
+                    <a target="_blank" href="{% url 'admin:index' %}" class="mynav ml-auto btn btn-simple">Admin</a>
+                    <a href="{% url 'tickets:create' %}" class="mynav btn btn-simple">New Ticket</a>
+                    <a href="{% url 'projects:all' %}" class="mynav btn btn-simple">Projects</a>
+                    <a href="{% url 'projects:create' %}" class="mynav btn btn-simple">New Project</a>
+                    <a href="{% url 'accounts:logout' %}" class="mynav btn btn-simple">Log out</a>
+              {% else %}
+                    <a href="{% url 'projects:all' %}"class="mynav ml-auto btn btn-simple">Projects</a>
+                    <a href="{% url 'accounts:login' %}" class="mynav btn btn-simple">Log in</a>
+                    <a href="{% url 'accounts:signup' %}" class="mynav btn btn-simple">Sign up</a>
+              {% endif %}
 
-    					<ul class="nav navbar-nav navbar-right">
-    						{% if user.is_authenticated %}
-                      <li> <a href="{% url 'admin:index' %}">Admin</a> </li>
-                      <li><a href="{% url 'tickets:create' %}" class="btn btn-simple">New Ticket</a></li>
-                      <li><a href="{% url 'projects:all' %}" class="btn btn-simple">Projects</a></li>
-                      <li><a href="{% url 'projects:create' %}" class="btn btn-simple">New Project</a></li>
-                      <li><a href="{% url 'accounts:logout' %}" class="btn btn-simple">Log out</a></li>
-    						{% else %}
-    						      <li><a href="{% url 'projects:all' %}"class="btn btn-simple">Projects</a></li>
-    						      <li><a href="{% url 'accounts:login' %}" class="btn btn-simple">Log in</a></li>
-    						      <li><a href="{% url 'accounts:signup' %}" class="btn btn-simple">Sign up</a></li>
-    						{% endif %}
-    					</ul>
-
-
-
-    			</div>
-    		</nav>
+          </div>
+        </nav>
+<p></p>
         <div class="container mycontent">
           {% block content %}
 
@@ -65,7 +53,9 @@
 <canvas id="canvas"></canvas>
 
 
-
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
   <script src="{% static "bugtracker2/js/master.js" %}" type="text/javascript" ></script>
 </html>

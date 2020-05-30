@@ -3,10 +3,13 @@
 {% block preproject %}
 
 
-<h1>{{project.name}}</h1>
-<h2> Member Count: {{project.members.count}}</h2>
+  <div class="container">
+    <h1>{{project.name}}</h1>
+    <h2> Member Count: {{project.members.count}}</h2>
+  </div>
 
-  <div class="content">
+
+  <div class="container projectcontent">
 
 
 				{% if user in project.members.all %}
@@ -21,7 +24,6 @@
 				{% endif %}
 
 
-
 </div>
 
 {% endblock %}
@@ -29,8 +31,9 @@
 
 {% block project_content %}
 
-<div class="col-md-8">
+<div class="col-md-12">
   <a href="{% url 'tickets:create' %}?Project={{project.name}}">New Ticket</a>
+  <hr>
 	{% if project.tickets.count == 0 %}
 	<h2>No tickets for this project yet!</h2>
 
@@ -38,6 +41,7 @@
 
 		{% for ticket in project.tickets.all %}
 			{% include "tickets/_ticket.html" %}
+      <hr>
 		{% endfor %}
 
 	{% endif %}
