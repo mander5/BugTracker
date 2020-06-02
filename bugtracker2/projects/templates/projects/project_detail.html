@@ -1,49 +1,54 @@
 {% extends "projects/project_base.html" %}
-
 {% block preproject %}
 
-
   <div class="container">
+
     <h1>{{project.name}}</h1>
     <h2> Member Count: {{project.members.count}}</h2>
-  </div>
 
+  </div>
 
   <div class="container projectcontent">
 
+		{% if user in project.members.all %}
 
-				{% if user in project.members.all %}
-					<a href="{% url 'projects:leave' slug=project.slug %}" class="btn btn-lg btn-fill btn-warning"><span class="glyphicon glyphicon-remove-circle"></span> Leave</a>
-				{% else %}
-        {% if messages %}
-            {% for message in messages %}
-            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-            {% endfor %}
+			<a href="{% url 'projects:leave' slug=project.slug %}" class="btn btn-lg btn-fill btn-warning"><span class="glyphicon glyphicon-remove-circle"></span> Leave </a>
+
+      {% else %}
+      {% if messages %}
+        {% for message in messages %}
+
+        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+
+        {% endfor %}
         {% endif %}
-					<a href="{% url 'projects:join' slug=project.slug %}" class="btn btn-lg btn-fill btn-warning"><span class="glyphicon glyphicon-ok-circle"></span> Join</a>
-				{% endif %}
 
+			<a href="{% url 'projects:join' slug=project.slug %}" class="btn btn-lg btn-fill btn-warning"><span class="glyphicon glyphicon-ok-circle"></span> Join </a>
 
-</div>
+    {% endif %}
+
+  </div>
 
 {% endblock %}
 
-
 {% block project_content %}
 
-<div class="col-md-12">
-  <a href="{% url 'tickets:create' %}?Project={{project.name}}">New Ticket</a>
-  <hr>
-	{% if project.tickets.count == 0 %}
-	<h2>No tickets for this project yet!</h2>
+  <div class="col-md-12">
 
-	{% else %}
-
-		{% for ticket in project.tickets.all %}
-			{% include "tickets/_ticket.html" %}
+      <a href="{% url 'tickets:create' %}?Project={{project.name}}">New Ticket</a>
       <hr>
-		{% endfor %}
 
-	{% endif %}
-</div>
+    	{% if project.tickets.count == 0 %}
+
+    	<h2>No tickets for this project yet!</h2>
+
+      	{% else %}
+    		{% for ticket in project.tickets.all %}
+    			{% include "tickets/_ticket.html" %}
+          <hr>
+    		{% endfor %}
+
+    	{% endif %}
+
+    </div>
 {% endblock %}
